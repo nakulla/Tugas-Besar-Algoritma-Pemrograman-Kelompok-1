@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 const NMAX int = 100
@@ -210,7 +211,9 @@ func beliAsetKripto(data arrKripto, asetUser *arrAset, riwayatUser *arrTransaksi
 	fmt.Print("Masukkan nominal rupiah yang ingin dibelanjakan: Rp.")
 	fmt.Scan(&nominal)
 
-	if *saldoUser < nominal {
+	const epsilon = 0.000001
+
+	if nominal > *saldoUser && math.Abs(nominal-*saldoUser) > epsilon {
 		fmt.Println("Mohon maaf saldo tidak cukup! Silahkan cek saldo anda")
 		return
 	}
@@ -483,7 +486,7 @@ func seqsearchidx(data arrKripto, n int, x string) int {
 	return -1
 }
 
-// Bagian Rasya
+// Bagian Nakulla
 
 func binsearchidx(asetUser arrAset, n int, x string) int {
 	selectionSortUpByNama(&asetUser, n)
